@@ -26,27 +26,33 @@ class Router
         throw new \Exception('Route not found');
     }
 
-    private function matchPath($routePath, $requestUri)
-    {
-        $routeSegments = explode('/', trim($routePath, '/'));
-        $uriSegments   = explode('/', trim($requestUri, '/'));
+private function matchPath($routePath, $requestUri)
+{
+    // Special handling for root path
+    if ($routePath === '/') {
+        return $requestUri === '/' || $requestUri === '';
+    }
 
-        if (count($routeSegments) !== count($uriSegments)) {
+    $routeSegments = explode('/', trim($routePath, '/'));
+    $uriSegments = explode('/', trim($requestUri, '/'));
+
+    if (count($routeSegments) !== count($uriSegments)) {
+        return false;
+    }
+
+    foreach ($routeSegments as $key => $segment) {
+        if(empty($segment)) continue;
+
+        if ($segment[0] === ':') {
+            $_GET[substr($segment, 1)] = $uriSegments[$key];
+            continue;
+        }
+        
+        if ($segment !== $uriSegments[$key]) {
             return false;
         }
-
-        foreach ($routeSegments as $key => $segment) {
-
-            if(empty($segment)) continue;
-
-            if ($segment[0] === ':') {
-                $_GET[substr($segment, 1)] = $uriSegments[$key];
-                continue;
-            }
-            if ($segment !== $uriSegments[$key]) {
-                return false;
-            }
-        }
-        return true;
     }
+    
+    return true;
+}
 }

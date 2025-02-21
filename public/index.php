@@ -1,8 +1,11 @@
 <?php
 
 require_once '../vendor/autoload.php';
+use Core\Model;
 use Core\Router;
 $router = new Router;
+
+
 
 // Define routes
 $router->add('GET', '/', 'App\Controllers\EventController', 'index');
