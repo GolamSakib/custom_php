@@ -1,0 +1,14 @@
+{
+    "name": "your-name/event-management",
+    "description": "Custom PHP Event Management System",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Core\\": "core/"
+        }
+    },
+    "require": {
+        "php": ">=7.4"
+       
+    }
+}
