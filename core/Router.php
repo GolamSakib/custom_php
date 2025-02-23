@@ -23,7 +23,6 @@ class Router
                 echo $controller->{$route['action']}();
             }
         }
-        throw new \Exception('Route not found');
     }
 
 private function matchPath($routePath, $requestUri)

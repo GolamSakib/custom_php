@@ -1,15 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Management System</title>
-    <!-- Bootstrap CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <p>Hello</p>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-</body>
-</html>
+<?php require_once __DIR__ . '/../header.php'; ?>
+    <div class="container mt-5">
+        <h1 class="mb-4">Upcoming Events</h1>
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Capacity</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($events as $event): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($event['id']); ?></td>
+                        <td><?php echo htmlspecialchars($event['name']); ?></td>
+                        <td><?php echo htmlspecialchars($event['description']); ?></td>
+                        <td><?php echo htmlspecialchars(date('F d, Y, h:i A', strtotime($event['date']))); ?></td>
+                        <td><?php echo htmlspecialchars($event['capacity']); ?></td>
+                        <td><?php echo htmlspecialchars($event['location']); ?></td>
+                        <td><?php echo htmlspecialchars($event['status']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php require_once __DIR__ . '/../footer.php';
+
+
