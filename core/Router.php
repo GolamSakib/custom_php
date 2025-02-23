@@ -20,7 +20,7 @@ class Router
         foreach ($this->routes as $route) {
             if ($route['method'] === $requestMethod && $this->matchPath($route['path'], $requestUri)) {
                 $controller = new $route['controller']();
-                return $controller->{$route['action']}();
+                echo $controller->{$route['action']}();
             }
         }
         throw new \Exception('Route not found');
