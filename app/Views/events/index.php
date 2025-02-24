@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($events as $event): ?>
+<?php foreach ($events as $event): ?>
                     <tr>
                         <td><?php echo htmlspecialchars($event['id']); ?></td>
                         <td><?php echo htmlspecialchars($event['name']); ?></td>
@@ -27,7 +27,17 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <nav>
+            <ul class="pagination">
+                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <li class="page-item <?php echo $i == $currentPage ? 'active' : ''; ?>">
+                        <a class="page-link" href="/events?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                    </li>
+                <?php endfor; ?>
+            </ul>
+        </nav>
+    </div>
+            </tbody>
+        </table>
     </div>
 <?php require_once __DIR__ . '/../footer.php';
-
-

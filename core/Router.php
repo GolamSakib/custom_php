@@ -15,15 +15,21 @@ class Router
         ];
     }
 
-    public function dispatch($requestMethod, $requestUri)
-    {
-        foreach ($this->routes as $route) {
-            if ($route['method'] === $requestMethod && $this->matchPath($route['path'], $requestUri)) {
-                $controller = new $route['controller']();
-                echo $controller->{$route['action']}();
-            }
+public function dispatch($requestMethod, $requestUri)
+{
+    $queryParams = [];
+    if (strpos($requestUri, '?') !== false) {
+        list($requestUri, $queryString) = explode('?', $requestUri);
+        parse_str($queryString, $queryParams);
+    }
+
+    foreach ($this->routes as $route) {
+        if ($route['method'] === $requestMethod && $this->matchPath($route['path'], $requestUri)) {
+            $controller = new $route['controller']();
+            echo $controller->{$route['action']}(...array_values($queryParams));
         }
     }
+}
 
 private function matchPath($routePath, $requestUri)
 {

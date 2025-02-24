@@ -14,10 +14,16 @@ public function __construct()
     $this->eventModel = new Event();
 
 }
-public function index(){
-    $events = $this->eventModel->all();
+public function index($page = 1){
+    $perPage = 10; // Number of items per page
+    $total = $this->eventModel->count(); // Total number of events
+    $events = $this->eventModel->paginate($page, $perPage);
+    $totalPages = ceil($total / $perPage);
+
     return $this->render('events/index',[
-        'events' => $events
+        'events' => $events,
+        'currentPage' => $page,
+        'totalPages' => $totalPages
     ]);
 }
 public function show(){

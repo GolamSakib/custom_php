@@ -44,4 +44,16 @@ abstract class Model{
         return $this->db->query("DELETE FROM {$this->table} WHERE id = ?", [$id]);
 
     }
+
+    public function count(){
+        $stmt = $this->db->query("SELECT COUNT(*) as count FROM {$this->table}");
+        $result = $stmt->fetch();
+        return $result['count'];
+    }
+
+    public function paginate($page, $perPage){
+        $offset = ($page - 1) * $perPage;
+        $stmt = $this->db->query("SELECT * FROM {$this->table} LIMIT $offset, $perPage");
+        return $stmt->fetchAll();
+    }
 }
