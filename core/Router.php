@@ -5,14 +5,22 @@ class Router
 {
     private $routes = [];
 
-    public function add($method, $path, $controller, $action)
+    private $middleware = [];
+
+    public function add($method, $path, $controller, $action, $middleware = [])
     {
         $this->routes[] = [
             'method'     => $method,
             'path'       => $path,
             'controller' => $controller,
             'action'     => $action,
+            'middleware' => $middleware,
         ];
+    }
+
+    public function addMiddleware($middleware)
+    {
+        $this->middleware[] = $middleware;
     }
 
 public function dispatch($requestMethod, $requestUri)
@@ -25,6 +33,14 @@ public function dispatch($requestMethod, $requestUri)
 
     foreach ($this->routes as $route) {
         if ($route['method'] === $requestMethod && $this->matchPath($route['path'], $requestUri)) {
+            foreach ($route['middleware'] as $middleware) {
+                (new $middleware())->handle();
+            }
+
+            foreach ($this->middleware as $middleware) {
+                (new $middleware())->handle();
+            }
+
             $controller = new $route['controller']();
             echo $controller->{$route['action']}(...array_values($queryParams));
         }

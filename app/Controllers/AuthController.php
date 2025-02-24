@@ -1,9 +1,16 @@
 <?php
 namespace App\Controllers;
 
-class AuthController{
+use Core\Controller;
+
+class AuthController extends Controller{
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     public function loginForm(){
-        echo 'Login form';
+        echo $this->view->render('auth/login');
     }
 }
