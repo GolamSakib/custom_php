@@ -39,8 +39,7 @@ public function dispatch($requestMethod, $requestUri)
             foreach ($this->middleware as $middleware) {
                 (new $middleware())->handle();
             }
-            $request = new Request();
-            $controller = new $route['controller']($request);
+            $controller = new $route['controller'];
             echo $controller->{$route['action']}(...array_values($queryParams));
         }
     }

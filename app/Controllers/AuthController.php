@@ -6,13 +6,6 @@ use Core\Request;
 
 class AuthController extends Controller{
 
-    protected $request;
-
-    public function __construct(Request $request)
-    {
-        parent::__construct();
-        $this->request = $request;
-    }
 
     public function login()
     {
