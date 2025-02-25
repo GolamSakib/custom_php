@@ -8,7 +8,7 @@ class Database
 
     private function __construct()
     {
-        $config = require_once '../config/database.php';
+        $config = require_once __DIR__ . '/../config/database.php';
         try {
             $this->connection = new \PDO(
                 "mysql:host={$config['host']};dbname={$config['database']}",

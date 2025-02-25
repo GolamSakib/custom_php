@@ -10,7 +10,7 @@ $router = new Router;
 // Define routes
 use Core\Middleware\AuthMiddleware;
 
-$router->add('GET', '/', 'App\Controllers\EventController', 'index', [AuthMiddleware::class]);
+$router->add('GET', '/', 'App\Controllers\EventController', 'index');
 $router->add('GET', '/login', 'App\Controllers\AuthController', 'loginForm');
 $router->add('POST', '/login', 'App\Controllers\AuthController', 'login');
 $router->add('GET', '/register', 'App\Controllers\AuthController', 'registerForm');
