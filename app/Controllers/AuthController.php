@@ -1,11 +1,20 @@
 <?php
 namespace App\Controllers;
 
-use Core\Controller;
 use Core\Request;
+use App\Models\User;
+use Core\Controller;
+use App\Utils\FileUploader;
 
 class AuthController extends Controller{
 
+    private $userModel;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->userModel = new User();
+    }
 
     public function login()
     {
@@ -24,6 +33,42 @@ class AuthController extends Controller{
         }
     }
 
+    public function register()
+    {
+        $name = htmlspecialchars($this->request->input('name'));
+        $email = filter_var($this->request->input('email'), FILTER_SANITIZE_EMAIL);
+        $password = password_hash($this->request->input('password'), PASSWORD_BCRYPT);
+        $avatar = FileUploader::upload('avatar');
+        $created_at = date('Y-m-d H:i:s');
+        $updated_at = date('Y-m-d H:i:s');
+        $columns = ['name', 'email', 'password', 'avatar', 'created_at', 'updated_at'];
+        $values = [$name, $email, $password, $avatar, $created_at, $updated_at];
+        $checkUser = $this->userModel->findBy('email', $email);
+        if ($checkUser) {
+            echo "User with email $email already exists";
+            return;
+        }
+        else{
+            $user=$this->userModel->create($columns, $values);
+            if ($user) {
+            // Ensure session is started
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+
+                $_SESSION['user'] = [
+                    'name' => $name,
+                    'email' => $email,
+                    'avatar' => $avatar,
+                ];
+                echo "User registered successfully";
+            } else {
+                echo "User registration failed";
+            }
+        }
+        
+
+    }
 
     public function loginForm(){
         echo $this->view->render('auth/login');

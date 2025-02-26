@@ -11,10 +11,19 @@ abstract class Model{
         $this->db = Database::getInstance();
     }
 
+
     public function find($id){
         $stmt=$this->db->query("SELECT * FROM $this->table WHERE id=$id");
-        return $stmt->fetch();
+        $result = $stmt->fetch();
+        return $result ? $result : null;
     }
+
+public function findBy($column, $value){
+    $stmt=$this->db->query("SELECT * FROM $this->table WHERE $column=$value");
+    $result = $stmt->fetch();
+    return $result ? $result : null;
+}
+
 
     public function all(){
         $stmt=$this->db->query("SELECT * FROM $this->table");

@@ -54,6 +54,10 @@
             <div class="modal-body">
                 <form method="POST" action="/register" enctype="multipart/form-data">
                     <div class="mb-3">
+                        <label for="name" class="form-label">Name:</label>
+                        <input  class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="signupEmail" class="form-label">Email:</label>
                         <input type="email" class="form-control" id="signupEmail" name="email" required>
                     </div>
@@ -67,8 +71,9 @@
                     </div>
                     <div class="mb-3">
                         <label for="profileImage" class="form-label">Profile Image:</label>
-                        <input type="file" class="form-control" id="profileImage" name="profile_image" accept="image/*">
+                        <input type="file" class="form-control" id="profileImage" name="avatar" accept="image/*">
                     </div>
+                    <div id="passwordError" class="text-danger" style="display: none;">Passwords do not match.</div>
                     <button type="submit" class="btn btn-primary bg-dark w-100">Sign Up</button>
                 </form>
             </div>
@@ -80,4 +85,6 @@
         </div>
     </div>
 </div>
+<script src="/js/login.js"></script>
+
 <?php require_once __DIR__ . '/../footer.php'; ?>

@@ -1,10 +1,7 @@
 <?php
-
 namespace Database\Migrations;
 
 use Core\Database;
-
-
 
 class CreateUsersTable
 {
@@ -23,7 +20,10 @@ class CreateUsersTable
             name VARCHAR(100) NOT NULL,
             email VARCHAR(100) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            avatar VARCHAR(255) DEFAULT NULL,
+            user_type VARCHAR(50) DEFAULT 'user'
         )";
         $this->execute($sql);
     }
