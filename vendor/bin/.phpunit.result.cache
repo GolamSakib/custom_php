@@ -1,0 +1,1 @@
+{"version":1,"defects":{"AuthControllerTest::testRegisterSuccess":4,"AuthControllerTest::testRegisterUserAlreadyExists":4,"AuthControllerTest::testRegisterFailure":4},"times":{"AuthControllerTest::testRegisterSuccess":0.004,"AuthControllerTest::testRegisterUserAlreadyExists":0,"AuthControllerTest::testRegisterFailure":0}}
