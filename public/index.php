@@ -24,6 +24,7 @@ $router->add('POST', '/events/:id/register', 'App\Controllers\AttendeeController
 try {
     $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 } catch (\Exception $e) {
+    echo $e->getMessage();
     http_response_code(404);
     echo '404 Not Found';
 }

@@ -18,8 +18,9 @@ abstract class Model{
         return $result ? $result : null;
     }
 
-public function findBy($column, $value){
-    $stmt=$this->db->query("SELECT * FROM $this->table WHERE $column=$value");
+public function findBy($column, $value) {
+    $sql = "SELECT * FROM {$this->table} WHERE $column = ?";
+    $stmt = $this->db->query($sql, [$value]);
     $result = $stmt->fetch();
     return $result ? $result : null;
 }
